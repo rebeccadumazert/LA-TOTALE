@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: './devops/node.dockerfile'
+    volumes:
+      - '../:/app'
+  nginx:
+    build:
+      context: .
+      dockerfile: './nginx.dockerfile'
+    ports:
+      - '8081:80'
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'rebi'
+      MONGO_INITDB_ROOT_PASSWORD: 'duma'
+    ports:
+      - 27017:27017
+volumes:
+  datas:
